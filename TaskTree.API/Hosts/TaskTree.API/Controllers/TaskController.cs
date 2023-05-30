@@ -5,7 +5,7 @@ using TaskTree.Application.Interfaces;
 namespace TaskTree.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TaskController : ControllerBase
     {
         private readonly ITaskService taskService;

@@ -6,5 +6,5 @@ public interface ITaskService
 {
     public Task<List<TaskModel>> GetTasksAsync();
 
-    public Task<List<Step>> GetStepsByParentIdAsync(string parentId);
+    public Task<List<TaskModel>> GetStepsByParentIdAsync(string parentId);
 }

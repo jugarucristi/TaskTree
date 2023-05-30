@@ -17,7 +17,7 @@ public class TaskService : ITaskService
         return await taskRetriever.GetTasksAsync();
     }
 
-    public async Task<List<Step>> GetStepsByParentIdAsync(string parentId)
+    public async Task<List<TaskModel>> GetStepsByParentIdAsync(string parentId)
     {
         return await taskRetriever.GetStepsByParentIdAsync(parentId);
     }

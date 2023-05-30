@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import GetTasks from './Methods/GetTasks';
+import Task from './Models/Task';
+import TaskComponent from './Components/TaskComponent';
 
 function App() {
+  
+  const [tasks, setTasks] = useState<Task[]>();
+
+  useEffect(() => {
+    GetTasks()
+    .then(result => setTasks(result));
+  },[]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {tasks ? tasks.map( task => <TaskComponent task={task} marginLeft={0}/>) : <div className="loader"/>}
+      </div>
     </div>
   );
 }

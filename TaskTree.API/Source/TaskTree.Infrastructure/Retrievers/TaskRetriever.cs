@@ -7,8 +7,6 @@ public class TaskRetriever : ITaskRetriever
 {
     public HashSet<TaskModel> Tasks { get; } = new();
 
-    public HashSet<Step> Steps { get; } = new();
-
 
     public TaskRetriever()
     {
@@ -26,32 +24,32 @@ public class TaskRetriever : ITaskRetriever
 
         Tasks.Add(firstTask);
 
-        var firstStep = new Step()
+        var firstStep = new TaskModel()
         {
             ParentId = firstTask.Id,
-            StepName = "First Step",
+            TaskName = "First Step",
             CreatorName = creatorName,
         };
 
-        Steps.Add(firstStep);
+        Tasks.Add(firstStep);
 
-        var secondStep = new Step()
+        var secondStep = new TaskModel()
         {
             ParentId = firstStep.Id,
-            StepName = "Second Step",
+            TaskName = "Second Step",
             CreatorName = creatorName,
         };
 
-        Steps.Add(secondStep);
+        Tasks.Add(secondStep);
 
-        var thirdStep = new Step()
+        var thirdStep = new TaskModel()
         {
             ParentId = secondStep.Id,
-            StepName = "Third Step",
+            TaskName = "Third Step",
             CreatorName = creatorName,
         };
 
-        Steps.Add(thirdStep);
+        Tasks.Add(thirdStep);
 
     }
 
@@ -59,14 +57,16 @@ public class TaskRetriever : ITaskRetriever
     {
         await Task.Delay(2000);
 
-        return this.Tasks.ToList();
+        var result = Tasks.Where(x => x.ParentId == null).ToList();
+
+        return result;
     }
 
-    public async Task<List<Step>> GetStepsByParentIdAsync(string parentId)
+    public async Task<List<TaskModel>> GetStepsByParentIdAsync(string parentId)
     {
         await Task.Delay(2000);
 
-        var result = Steps.Where(x => x.ParentId.ToString() == parentId);
+        var result = Tasks.Where(x => x.ParentId.ToString() == parentId);
 
         return result.ToList();
     }
